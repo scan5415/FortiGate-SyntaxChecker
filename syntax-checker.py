@@ -222,7 +222,7 @@ def analyze_file(path: Path) -> List[Dict]:
                 continue
 
             # Only check for \" usage outside set buffer blocks
-            if '\\"' in line:
+            if '\\"' in line and not any(excl in line for excl in ("buffer")):
                 issues.append(
                     {
                         "line": i + 1,
@@ -475,8 +475,6 @@ def print_issues_table(issues: List[Dict], include_warnings: bool = False):
     for it in issues:
         if not include_warnings and it.get("severity") == "WARNING":
             continue
-        if it.get("issue") == "Invalid escape sequence":
-            continue  # Ignore all "Invalid escape sequence" issues
         line = str(it["line"]) if it["line"] is not None else "-"
         severity = it.get("severity", "")
         issue = it.get("issue", "")
@@ -499,6 +497,18 @@ def main():
         raise SystemExit(2)
 
     issues = analyze_file(args.input)
+    # If no issues found (including warnings), print success message
+    if not issues:
+        console = Console()
+        console.print("[bold green]No issues found. Syntax check successful![/bold green]")
+        return
+    
+    # Check if only warnings are present
+    if all(i.get("severity") == "WARNING" for i in issues):
+        console = Console()
+        console.print("[bold yellow]Syntax check successful, only warnings found.[/bold yellow]")
+        return
+    
     print_issues_table(issues, include_warnings=args.warnings)
     # Exit code: 0 if no errors, 1 if any ERROR severity present, 2 if file missing (handled above)
     if any(i["severity"] == "ERROR" for i in issues):
