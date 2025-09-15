@@ -32,6 +32,25 @@ The script will print a table of potential issues found in the CLI script, inclu
 
 ![alt text](CLI-output.png)
 
+## Implemented Checks
+
+The script performs the following heuristic checks on your FortiGate CLI script:
+
+- **Top-level command validation:** Flags unknown or uncommon commands not in the standard FortiGate CLI set.
+- **Block structure:** Checks for correct usage and closure of `config`, `edit`, `next`, and `end` blocks. Reports unclosed or misplaced blocks.
+- **Argument presence:** Ensures required arguments are present for commands like `config`, `edit`, and `set`.
+- **Multiline quoted values:** Handles and validates multiline quoted values (e.g., certificates, keys), including context checks for certificate/key blocks.
+- **Certificate block validation:** Checks for presence of public/private keys in certificate blocks.
+- **IP address validation:** Verifies that values expected to be IPv4 addresses are valid.
+- **Network validation:** Checks for valid IPv4 network notation (CIDR).
+- **Assignment operator:** Warns if `=` is used instead of space for assignments (FortiGate CLI expects space-separated tokens).
+- **Boolean value checks:** Warns if a `set` command is missing a value, unless the option is a known boolean.
+- **Escape sequence validation:** Flags invalid use of escape sequences (e.g., `\"` outside allowed contexts).
+- **Comment handling:** Ignores full-line comments and strips inline comments for parsing.
+- **Incomplete commands:** Warns about possibly incomplete commands like `get`, `show`, `diagnose`, or `execute` with no arguments.
+- **Extra tokens:** Reports extra tokens after `next` or `end` commands.
+- **General parse errors:** Reports unmatched quotes and other parsing issues.
+
 ## Notes
 
 - This tool uses heuristic checks and is not an authoritative parser for FortiGate CLI.
