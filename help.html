@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FortiGate-SyntaxChecker Help</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f8f9fa; }
+        h1, h2 { color: #2c3e50; }
+        code, pre { background: #eef; padding: 2px 4px; border-radius: 4px; }
+        .section { margin-bottom: 2em; }
+        ul { margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+    <h1>FortiGate-SyntaxChecker Help</h1>
+
+    <div class="section">
+        <h2>Overview</h2>
+        <p>
+            <strong>FortiGate-SyntaxChecker</strong> is a Python script that checks the CLI syntax of FortiGate backup files.
+            It helps you find common mistakes and formatting issues before restoring or uploading configurations.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Installation</h2>
+        <ol>
+            <li>Download or clone the repository to your computer.</li>
+            <li>Ensure you have <strong>Python 3.7</strong> or newer installed.</li>
+            <li>Open a terminal or command prompt in the project folder.</li>
+            <li>Install the required package by running:<br>
+                <pre>pip install -r requirements.txt</pre>
+            </li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Usage</h2>
+        <p>To check a FortiGate CLI script file, run:</p>
+        <pre>python syntax-checker.py path/to/cli_script.txt</pre>
+        <p>To include warnings in the output, add the <code>--warnings</code> option:</p>
+        <pre>python syntax-checker.py path/to/cli_script.txt --warnings</pre>
+    </div>
+
+    <div class="section">
+        <h2>Output</h2>
+        <p>
+            The script prints a table of potential issues found in your CLI script, including:
+        </p>
+        <ul>
+            <li>Line number</li>
+            <li>Severity (ERROR, WARNING, INFO)</li>
+            <li>Issue description</li>
+            <li>Details and context</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Notes</h2>
+        <ul>
+            <li>This tool uses heuristic checks and is not an authoritative parser for FortiGate CLI.</li>
+            <li>It is intended to help catch common mistakes and formatting issues before uploading or restoring configurations.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Contact & Support</h2>
+        <p>
+            For questions or feedback, please contact the repository maintainer or open an issue in the project repository.
+        </p>
+    </div>
+</body>
+</html>

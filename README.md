@@ -30,6 +30,8 @@ python syntax-checker.py path/to/cli_script.txt --warnings
 
 The script will print a table of potential issues found in the CLI script, including line numbers, severity, and details.
 
+![alt text](CLI-output.png)
+
 ## Notes
 
 - This tool uses heuristic checks and is not an authoritative parser for FortiGate CLI.
